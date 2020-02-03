@@ -33,6 +33,7 @@
 		FDD37C2A23D751B300CB0BE3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FDD37C2923D751B300CB0BE3 /* GoogleService-Info.plist */; };
 		FDD37C2C23D75E2500CB0BE3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD37C2B23D75E2500CB0BE3 /* Constants.swift */; };
 		FDD37C2E23D8496A00CB0BE3 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD37C2D23D8496A00CB0BE3 /* UserModel.swift */; };
+		FDDC7FB623E73C89002E9ABE /* FirstLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDC7FB523E73C89002E9ABE /* FirstLoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		FDD37C2923D751B300CB0BE3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		FDD37C2B23D75E2500CB0BE3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FDD37C2D23D8496A00CB0BE3 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		FDDC7FB523E73C89002E9ABE /* FirstLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 			children = (
 				FDD37C1C23D749A400CB0BE3 /* RegisterViewController.swift */,
 				FDD37C1E23D749D200CB0BE3 /* LoginViewController.swift */,
+				FDDC7FB523E73C89002E9ABE /* FirstLoginViewController.swift */,
 				FDD37C2023D749E500CB0BE3 /* MainViewController.swift */,
 				FD7B111123D4D86600E9B60C /* WelcomeViewController.swift */,
 			);
@@ -314,6 +317,7 @@
 				FDD37C1D23D749A400CB0BE3 /* RegisterViewController.swift in Sources */,
 				FDD37C1923D7473000CB0BE3 /* ShiftModel.swift in Sources */,
 				FD7B111023D4D86600E9B60C /* SceneDelegate.swift in Sources */,
+				FDDC7FB623E73C89002E9ABE /* FirstLoginViewController.swift in Sources */,
 				FDD37C2123D749E500CB0BE3 /* MainViewController.swift in Sources */,
 				FDD37C2E23D8496A00CB0BE3 /* UserModel.swift in Sources */,
 				FDD37C2C23D75E2500CB0BE3 /* Constants.swift in Sources */,
