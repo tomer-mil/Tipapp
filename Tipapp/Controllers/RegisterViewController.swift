@@ -12,6 +12,10 @@ import FirebaseFirestoreSwift
 
 class RegisterViewController: UIViewController {
     
+    let db = Firestore.firestore()
+    private var pickerData = ["האחים", "dok דוק", "abie אייבי"]
+    private var selectedRestaurant = ""
+    var userName : String?
     
     @IBOutlet weak var secondPasswordTextfield: UITextField!
     @IBOutlet weak var passwordTextfield: UITextField!
@@ -19,6 +23,7 @@ class RegisterViewController: UIViewController {
     
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var restaurantPickerView: UIPickerView!
+    @IBOutlet weak var selectARestaurant: UITextField!
     
     @IBAction func signupButtonPressed(_ sender: Any) {
         if  let email = emailTextfield.text,
@@ -32,51 +37,141 @@ class RegisterViewController: UIViewController {
                     print(e.localizedDescription)
                     
                 } else {
-                    let db = Firestore.firestore()
-                    db.collection("users").addDocument(data: [
+                    self.db.collection("users").document(Result!.user.uid).setData([
                         "name" : name,
-                        "restaurant" : "abie",
+                        "restaurant" : self.selectedRestaurant,
                         "uid" : Result!.user.uid
                     ]) { (error) in
                         if let e = error {
                             print(e.localizedDescription)
                         }
                     }
-                    // navigate to chat view controller
-                    self.performSegue(withIdentifier: K.registerSegue, sender: self)
+                    self.fetchUserName()
+                    
                 }
             }
         }
+    }
+    
+    //MARK: - Fetching the user's first name methods
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == K.registerSegue {
+            let destinationVC = segue.destination as! MainViewController
+            destinationVC.userName = userName!
+        }
+    }
+    
+    func fetchUserName(){
+        
+        guard let loggedUser = Auth.auth().currentUser else {
+            fatalError("Couldn't fetch logged in user")}
+        
+        let usersRef = db.collection("users")
+        let query = usersRef.whereField("uid", isEqualTo: loggedUser.uid)
+        
+        query.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                if let snapshotDocument = querySnapshot?.documents {
+                    for document in snapshotDocument {
+                        let user = document.data()
+                        let fetchedUserName = user["name"] as? String
+                        
+                        self.userName = fetchedUserName
+                        
+                        DispatchQueue.main.async {
+                            self.performSegue(withIdentifier: K.registerSegue, sender: self)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.selectARestaurant.delegate = self
         
     }
-//    func addUserInfo(name: String?, restaurant: String?, userID: String) {
-//        db.collection("users").addDocument(data: [
-//            "name" : name ?? "ללא שם" ,
-//            "restaurant" : restaurant ?? "לא הוזנה מסעדה" ,
-//            "user_id" : userID
-//        ]) { err in
-//            if let err = err {
-//                print("Error adding document: \(err)")
-//            } else {
-//                print("Document added with ID")
-//            }
-//        }
-//    }
+    
+    
 }
 
 
 
 
 
-//MARK: - Textfield Delegate Methods
+//MARK: - PickerView Delegate Methods
 
-//extension RegisterViewController: UITextFieldDelegate {
-//        func textFieldDidEndEditing(_ textField: UITextField) {
-//            resignFirstResponder()
-//        }
-//}
+extension RegisterViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedRestaurant = pickerData[row]
+        selectARestaurant.text = selectedRestaurant
+        pickerView.reloadAllComponents()
+        print(selectedRestaurant)
+    }
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let pickerLabel = UILabel()
+        
+        if pickerView.selectedRow(inComponent: component) == row {
+            
+            pickerLabel.attributedText =  NSAttributedString(string: pickerData[row], attributes: [NSAttributedString.Key.font:UIFont(name: "Rubik", size: 26.0)!, NSAttributedString.Key.foregroundColor: UIColor(named: "SecondaryDark")!])
+        } else {
+            pickerLabel.attributedText = NSAttributedString(string: pickerData[row], attributes: [NSAttributedString.Key.font:UIFont(name: "Rubik", size: 26.0)!, NSAttributedString.Key.foregroundColor: UIColor(named: "TextColorLight")!])
+        }
+        pickerLabel.textAlignment = .center
+        return pickerLabel
+    }
+}
 
-//MARK: - New User Functions
+
+//MARK: - UITextField Delegate Methods
+extension RegisterViewController : UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        createPickerView()
+        dismissPickerView()
+    }
+}
+
+
+
+//MARK: - Creating UIPickerView DropDown
+
+extension RegisterViewController {
+    
+    func createPickerView() {
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        selectARestaurant.inputView = pickerView
+    }
+    func dismissPickerView() {
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.action))
+        toolBar.setItems([button], animated: true)
+        toolBar.isUserInteractionEnabled = true
+        selectARestaurant.inputAccessoryView = toolBar
+    }
+    @objc func action() {
+        view.endEditing(true)
+    }
+    
+}
 
 
 

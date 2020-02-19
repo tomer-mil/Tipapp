@@ -164,6 +164,7 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.3):
     - BoringSSL-GRPC/Interface (= 0.0.3)
   - BoringSSL-GRPC/Interface (0.0.3)
+  - EzPopup (1.1)
   - Firebase (6.15.0):
     - Firebase/Core (= 6.15.0)
   - Firebase/Analytics (6.15.0):
@@ -281,14 +282,15 @@ PODS:
   - nanopb/encode (0.3.9011)
   - PopupKit (3.1.1)
   - PromisesObjC (1.2.8)
-  - Realm (4.3.0):
-    - Realm/Headers (= 4.3.0)
-  - Realm/Headers (4.3.0)
-  - RealmSwift (4.3.0):
-    - Realm (= 4.3.0)
+  - Realm (4.3.2):
+    - Realm/Headers (= 4.3.2)
+  - Realm/Headers (4.3.2)
+  - RealmSwift (4.3.2):
+    - Realm (= 4.3.2)
   - SideMenu (6.4.7)
 
 DEPENDENCIES:
+  - EzPopup
   - Firebase
   - Firebase/Analytics
   - Firebase/Auth
@@ -301,6 +303,7 @@ SPEC REPOS:
   trunk:
     - abseil
     - BoringSSL-GRPC
+    - EzPopup
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -330,6 +333,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
+  EzPopup: b959cfb0d70d782a28e770a96c454df0401467c7
   Firebase: 5d77105d9740a07ca6b16927ca971db7e860faaf
   FirebaseAnalytics: e83e64b1231dedcd9ddd4bdecd9bcfd6ba341679
   FirebaseAuth: ce45d7c5d46bed90159f3a73b6efbe8976ed3573
@@ -352,10 +356,10 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PopupKit: e362ed92148d831a9c38a2bc7a25893e46d64c54
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
-  Realm: 9357c3589555793e1860a7104a7412bca4a48d99
-  RealmSwift: 402f1e379a8ef82c635313037b043f0f06de880c
+  Realm: 5e92902e2875dff4bb0fd02f67bb737c3d5db2bc
+  RealmSwift: 9a360fc7bae04fc2e308a34fbd899d5faa2d6b22
   SideMenu: 928a015669c3afc201e1fe3a87f1b0bc8993a664
 
-PODFILE CHECKSUM: 269fb6bbec539af16df03b3867b8aa6780626f8c
+PODFILE CHECKSUM: de3710d54e0753c3aa90857bfbac12b0d851f6b5
 
 COCOAPODS: 1.8.4

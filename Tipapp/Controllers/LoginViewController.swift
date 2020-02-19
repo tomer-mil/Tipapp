@@ -13,6 +13,7 @@ import FirebaseFirestoreSwift
 class LoginViewController: UIViewController {
     
     private let db = Firestore.firestore()
+    var userName : String?
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -28,26 +29,46 @@ class LoginViewController: UIViewController {
                     self.present(popup, animated: true, completion: nil)
                     print(e)
                 } else {
-                    
-                    guard let firstLogin = authResult?.additionalUserInfo?.isNewUser else { fatalError("isNewUser is nil")}
-                    print(firstLogin)
-                    if firstLogin == true {
-                        self.performSegue(withIdentifier: K.firstLoginSegue, sender: self)
-                    } else {
-                        self.performSegue(withIdentifier: K.loginSegue, sender: self)
-                    }
+                    self.fetchUserName()
                 }
             }
         }
     }
     
     
+//MARK: - Passing the user's first name
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.loginSegue {
-            let destinationVC = segue.destination as! LoginViewController
-        } else if segue.identifier == K.firstLoginSegue {
-            let destinationVC = segue.destination as! FirstLoginViewController
+            let destinationVC = segue.destination as! MainViewController
+            destinationVC.userName = userName!
         }
     }
     
+    func fetchUserName(){
+        
+        guard let loggedUser = Auth.auth().currentUser else {
+            fatalError("Couldn't fetch logged in user")}
+        
+        let usersRef = db.collection("users")
+        let query = usersRef.whereField("uid", isEqualTo: loggedUser.uid)
+        
+        query.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                if let snapshotDocument = querySnapshot?.documents {
+                    for document in snapshotDocument {
+                        let user = document.data()
+                        let fetchedUserName = user["name"] as? String
+                        
+                        self.userName = fetchedUserName
+                        
+                        DispatchQueue.main.async {
+                            self.performSegue(withIdentifier: K.loginSegue, sender: self)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

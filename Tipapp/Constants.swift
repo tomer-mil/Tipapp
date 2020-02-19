@@ -14,6 +14,7 @@ struct K {
     static let registerSegue = "registerToMain"
     static let loginSegue = "loginToMain"
     static let firstLoginSegue = "loginToFirst"
+    static let showNewShiftSegue = "showAddShift"
     
     struct BrandColors {
         static let purple = "BrandPurple"

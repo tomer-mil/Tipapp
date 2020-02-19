@@ -8,14 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		99D2CB05D72FB971283DBAC9 /* Pods_Tipapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47C404B44B4BB6E9A5E25E70 /* Pods_Tipapp.framework */; };
+		FD391BF623F7F806008CE9EA /* NewShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD391BF523F7F806008CE9EA /* NewShiftViewController.swift */; };
 		FD7B110E23D4D86600E9B60C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7B110D23D4D86600E9B60C /* AppDelegate.swift */; };
 		FD7B111023D4D86600E9B60C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7B110F23D4D86600E9B60C /* SceneDelegate.swift */; };
 		FD7B111223D4D86600E9B60C /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7B111123D4D86600E9B60C /* WelcomeViewController.swift */; };
 		FD7B111523D4D86600E9B60C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD7B111323D4D86600E9B60C /* Main.storyboard */; };
 		FD7B111723D4D86700E9B60C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD7B111623D4D86700E9B60C /* Assets.xcassets */; };
 		FD7B111A23D4D86700E9B60C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD7B111823D4D86700E9B60C /* LaunchScreen.storyboard */; };
-		FD7B112923D4E14F00E9B60C /* NewShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7B112723D4E14F00E9B60C /* NewShift.swift */; };
-		FD7B112A23D4E14F00E9B60C /* NewShift.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD7B112823D4E14F00E9B60C /* NewShift.xib */; };
 		FD7B113523D4EBB300E9B60C /* Rubik-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD7B112B23D4EBB100E9B60C /* Rubik-MediumItalic.ttf */; };
 		FD7B113623D4EBB300E9B60C /* Rubik-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD7B112C23D4EBB100E9B60C /* Rubik-Italic.ttf */; };
 		FD7B113723D4EBB300E9B60C /* Rubik-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD7B112D23D4EBB200E9B60C /* Rubik-BlackItalic.ttf */; };
@@ -26,6 +25,7 @@
 		FD7B113C23D4EBB300E9B60C /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD7B113223D4EBB200E9B60C /* Rubik-Regular.ttf */; };
 		FD7B113D23D4EBB300E9B60C /* Rubik-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD7B113323D4EBB200E9B60C /* Rubik-LightItalic.ttf */; };
 		FD7B113E23D4EBB300E9B60C /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD7B113423D4EBB200E9B60C /* Rubik-Medium.ttf */; };
+		FD9775DA23F9888400DEB434 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9775D923F9888400DEB434 /* Utilities.swift */; };
 		FDD37C1923D7473000CB0BE3 /* ShiftModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD37C1823D7473000CB0BE3 /* ShiftModel.swift */; };
 		FDD37C1D23D749A400CB0BE3 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD37C1C23D749A400CB0BE3 /* RegisterViewController.swift */; };
 		FDD37C1F23D749D200CB0BE3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD37C1E23D749D200CB0BE3 /* LoginViewController.swift */; };
@@ -33,13 +33,13 @@
 		FDD37C2A23D751B300CB0BE3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FDD37C2923D751B300CB0BE3 /* GoogleService-Info.plist */; };
 		FDD37C2C23D75E2500CB0BE3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD37C2B23D75E2500CB0BE3 /* Constants.swift */; };
 		FDD37C2E23D8496A00CB0BE3 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD37C2D23D8496A00CB0BE3 /* UserModel.swift */; };
-		FDDC7FB623E73C89002E9ABE /* FirstLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDC7FB523E73C89002E9ABE /* FirstLoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		47C404B44B4BB6E9A5E25E70 /* Pods_Tipapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tipapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91878AECF1754061C7176788 /* Pods-Tipapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tipapp.release.xcconfig"; path = "Target Support Files/Pods-Tipapp/Pods-Tipapp.release.xcconfig"; sourceTree = "<group>"; };
 		A9030D94974A2CE957D8507B /* Pods-Tipapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tipapp.debug.xcconfig"; path = "Target Support Files/Pods-Tipapp/Pods-Tipapp.debug.xcconfig"; sourceTree = "<group>"; };
+		FD391BF523F7F806008CE9EA /* NewShiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewShiftViewController.swift; sourceTree = "<group>"; };
 		FD7B110A23D4D86600E9B60C /* Tipapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tipapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD7B110D23D4D86600E9B60C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD7B110F23D4D86600E9B60C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,8 +48,6 @@
 		FD7B111623D4D86700E9B60C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD7B111923D4D86700E9B60C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FD7B111B23D4D86700E9B60C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FD7B112723D4E14F00E9B60C /* NewShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewShift.swift; sourceTree = "<group>"; };
-		FD7B112823D4E14F00E9B60C /* NewShift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewShift.xib; sourceTree = "<group>"; };
 		FD7B112B23D4EBB100E9B60C /* Rubik-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-MediumItalic.ttf"; sourceTree = "<group>"; };
 		FD7B112C23D4EBB100E9B60C /* Rubik-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Italic.ttf"; sourceTree = "<group>"; };
 		FD7B112D23D4EBB200E9B60C /* Rubik-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-BlackItalic.ttf"; sourceTree = "<group>"; };
@@ -60,6 +58,7 @@
 		FD7B113223D4EBB200E9B60C /* Rubik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Regular.ttf"; sourceTree = "<group>"; };
 		FD7B113323D4EBB200E9B60C /* Rubik-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-LightItalic.ttf"; sourceTree = "<group>"; };
 		FD7B113423D4EBB200E9B60C /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
+		FD9775D923F9888400DEB434 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		FDD37C1823D7473000CB0BE3 /* ShiftModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftModel.swift; sourceTree = "<group>"; };
 		FDD37C1C23D749A400CB0BE3 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterViewController.swift; path = Tipapp/Controllers/RegisterViewController.swift; sourceTree = SOURCE_ROOT; };
 		FDD37C1E23D749D200CB0BE3 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -67,7 +66,6 @@
 		FDD37C2923D751B300CB0BE3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		FDD37C2B23D75E2500CB0BE3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FDD37C2D23D8496A00CB0BE3 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		FDDC7FB523E73C89002E9ABE /* FirstLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,12 +118,11 @@
 		FD7B110C23D4D86600E9B60C /* Tipapp */ = {
 			isa = PBXGroup;
 			children = (
+				FD7B110D23D4D86600E9B60C /* AppDelegate.swift */,
+				FD7B110F23D4D86600E9B60C /* SceneDelegate.swift */,
 				FDD37C2423D74BB600CB0BE3 /* Models */,
 				FDD37C2323D74BA600CB0BE3 /* Views */,
 				FDD37C2223D749FD00CB0BE3 /* Controllers */,
-				FD7B110D23D4D86600E9B60C /* AppDelegate.swift */,
-				FD7B110F23D4D86600E9B60C /* SceneDelegate.swift */,
-				FD7B112723D4E14F00E9B60C /* NewShift.swift */,
 				FD7B111623D4D86700E9B60C /* Assets.xcassets */,
 				FD7B113F23D4EBBD00E9B60C /* RubikFont */,
 				FD7B111B23D4D86700E9B60C /* Info.plist */,
@@ -157,9 +154,10 @@
 			children = (
 				FDD37C1C23D749A400CB0BE3 /* RegisterViewController.swift */,
 				FDD37C1E23D749D200CB0BE3 /* LoginViewController.swift */,
-				FDDC7FB523E73C89002E9ABE /* FirstLoginViewController.swift */,
 				FDD37C2023D749E500CB0BE3 /* MainViewController.swift */,
 				FD7B111123D4D86600E9B60C /* WelcomeViewController.swift */,
+				FD391BF523F7F806008CE9EA /* NewShiftViewController.swift */,
+				FD9775D923F9888400DEB434 /* Utilities.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -168,7 +166,6 @@
 			isa = PBXGroup;
 			children = (
 				FD7B111823D4D86700E9B60C /* LaunchScreen.storyboard */,
-				FD7B112823D4E14F00E9B60C /* NewShift.xib */,
 				FD7B111323D4D86600E9B60C /* Main.storyboard */,
 			);
 			path = Views;
@@ -248,7 +245,6 @@
 				FDD37C2A23D751B300CB0BE3 /* GoogleService-Info.plist in Resources */,
 				FD7B111A23D4D86700E9B60C /* LaunchScreen.storyboard in Resources */,
 				FD7B113823D4EBB300E9B60C /* Rubik-BoldItalic.ttf in Resources */,
-				FD7B112A23D4E14F00E9B60C /* NewShift.xib in Resources */,
 				FD7B113623D4EBB300E9B60C /* Rubik-Italic.ttf in Resources */,
 				FD7B113523D4EBB300E9B60C /* Rubik-MediumItalic.ttf in Resources */,
 				FD7B113D23D4EBB300E9B60C /* Rubik-LightItalic.ttf in Resources */,
@@ -312,12 +308,12 @@
 			files = (
 				FDD37C1F23D749D200CB0BE3 /* LoginViewController.swift in Sources */,
 				FD7B111223D4D86600E9B60C /* WelcomeViewController.swift in Sources */,
-				FD7B112923D4E14F00E9B60C /* NewShift.swift in Sources */,
+				FD9775DA23F9888400DEB434 /* Utilities.swift in Sources */,
 				FD7B110E23D4D86600E9B60C /* AppDelegate.swift in Sources */,
 				FDD37C1D23D749A400CB0BE3 /* RegisterViewController.swift in Sources */,
 				FDD37C1923D7473000CB0BE3 /* ShiftModel.swift in Sources */,
 				FD7B111023D4D86600E9B60C /* SceneDelegate.swift in Sources */,
-				FDDC7FB623E73C89002E9ABE /* FirstLoginViewController.swift in Sources */,
+				FD391BF623F7F806008CE9EA /* NewShiftViewController.swift in Sources */,
 				FDD37C2123D749E500CB0BE3 /* MainViewController.swift in Sources */,
 				FDD37C2E23D8496A00CB0BE3 /* UserModel.swift in Sources */,
 				FDD37C2C23D75E2500CB0BE3 /* Constants.swift in Sources */,
