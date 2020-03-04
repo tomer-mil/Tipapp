@@ -7,8 +7,9 @@
 //
 
 import UIKit
-import Realm
 import RealmSwift
+import Firebase
+import FirebaseFirestoreSwift
 
 class NewShiftViewController : UIViewController {
     
@@ -22,21 +23,53 @@ class NewShiftViewController : UIViewController {
     @IBOutlet weak var lunchSwitch: UISwitch!
     
     let realm = try! Realm()
-    let datePicker = UIDatePicker()
-    let hebLocale = Locale(identifier: "he_IL")
-    var selectedDate : Date?
     
+    let db = Firestore.firestore()
+    
+    let datePicker = UIDatePicker()
+    var selectedDate : Date?
+    var usersRestaurant : String?
     
     @IBAction func addShiftPressed(_ sender: UIButton) {
+        
+        guard let loggedUserInfo = Auth.auth().currentUser else {
+            fatalError("could")
+            }
+        
+        let userRef = db.collection("users").document(loggedUserInfo.uid)
+//        let monthQuery = restaurantRef.
+        let shiftRef = userRef.collection("shifts")
+
         let newShift = Shift()
         
         let doubleWage = convertToDouble(wageTextField.text)
         let doubleLength = convertToDouble(shiftLengthTextField.text)
         let doubleWaitingTime = convertToDouble(waitingTimeTextField.text)
         
+        shiftRef.addDocument(data: [
+            "date" : selectedDate!,
+            "wage" : doubleWage,
+            "length" : doubleLength,
+            
+            "fifty" : fiftySwitch.isOn,
+            "training" : traineeSwitch.isOn,
+            "noon" : lunchSwitch.isOn,
+            "waiting" : doubleWaitingTime,
+            "total" : calcTotal(wage: doubleWage, length: doubleLength)
+            
+            
+        ]) { (error) in
+            if let e = error {
+                print(e.localizedDescription)
+            }
+        }
+        
+        
+        
+        
         do {
             try realm.write {
-                newShift.dateCreated = selectedDate
+                newShift.date = selectedDate
                 newShift.length = doubleLength
                 newShift.wage = doubleWage
                 
@@ -44,6 +77,7 @@ class NewShiftViewController : UIViewController {
                 newShift.fifty = fiftySwitch.isOn
                 newShift.noon = lunchSwitch.isOn
                 newShift.training = traineeSwitch.isOn
+                newShift.total = calcTotal(wage: doubleWage, length: doubleLength)
                 realm.add(newShift)
             }
         } catch {
@@ -54,15 +88,43 @@ class NewShiftViewController : UIViewController {
         }
         
     }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dateTextField.delegate = self
         changeTextFieldUI()
+        fetchUserData()
     }
     
     
     
+    //MARK: - Data Fetching Methods
     
+    func fetchUserData() {
+           
+           guard let loggedUser = Auth.auth().currentUser else {
+               fatalError("Couldn't fetch logged in user")}
+           
+           let usersRef = db.collection("users")
+           let query = usersRef.whereField("uid", isEqualTo: loggedUser.uid)
+            var userDataField : String?
+           
+           query.getDocuments { (querySnapshot, error) in
+               if let error = error {
+                   print(error.localizedDescription)
+               } else {
+                   if let snapshotDocument = querySnapshot?.documents {
+                       for document in snapshotDocument {
+                           let user = document.data()
+                            userDataField = user["restaurant"] as? String
+                            self.usersRestaurant = userDataField
+
+                       }
+                   }
+               }
+           }
+       }
     
     
     
@@ -70,7 +132,7 @@ class NewShiftViewController : UIViewController {
     //MARK: - Convertion functions
     
     //Convert String to Double for Realm
-    func convertToDouble(_ text: String?) -> Double {
+    private func convertToDouble(_ text: String?) -> Double {
         if let safeValue = text {
             if let doubleValue = Double(safeValue) {
                 return doubleValue
@@ -83,16 +145,30 @@ class NewShiftViewController : UIViewController {
     }
     
     //Convert Date to String for TextField UI
-    func dateToString(_ date: Date, format: String) -> String {
+    private func dateToString(_ date: Date, format: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = hebLocale
+        dateFormatter.locale = Utilities.hebLocale
         dateFormatter.dateFormat = format
         let stringDate = dateFormatter.string(from: date)
         
         return stringDate
     }
     
-    
+
+    //MARK: - Calc Total Method
+    private func calcTotal (wage: Double, length: Double) -> Double {
+        var total = 0.0
+        let provision = Utilities.socialProvision
+        
+        if fiftySwitch.isOn && lunchSwitch.isOn {
+            total = (wage * length) - (provision - 20.0)
+        } else if fiftySwitch.isOn {
+            total = (wage * length) - provision
+        } else if fiftySwitch.isOn == false {
+            total = wage * length
+        }
+        return total
+    }
 }
 
 //MARK: - UITextField Delegate Methods
@@ -136,3 +212,14 @@ extension NewShiftViewController  {
     
     
 }
+
+//MARK: - Date extension
+
+extension Date {
+    var month: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM"
+        return dateFormatter.string(from: self)
+    }
+}
+

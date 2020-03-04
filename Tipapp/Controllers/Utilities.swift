@@ -7,8 +7,15 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestoreSwift
 
-class Utilities {
+struct Utilities {
+    // Constants
+    
+    static let hebLocale = Locale(identifier: "he_IL")
+    static let socialProvision = 50.0
+    
     // Creating an Error Popoup
     static func createErrorPopup(with title: String, with messeage: String) {
         let alert = UIAlertController(title: title, message: messeage, preferredStyle: .alert)
@@ -17,6 +24,11 @@ class Utilities {
         }
         alert.addAction(action)
     }
+    
+    //Firebase Shit
+    
+    let db = Firestore.firestore()
+    
     
 }
 

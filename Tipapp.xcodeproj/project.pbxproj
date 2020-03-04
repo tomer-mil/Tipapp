@@ -25,6 +25,7 @@
 		FD7B113C23D4EBB300E9B60C /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD7B113223D4EBB200E9B60C /* Rubik-Regular.ttf */; };
 		FD7B113D23D4EBB300E9B60C /* Rubik-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD7B113323D4EBB200E9B60C /* Rubik-LightItalic.ttf */; };
 		FD7B113E23D4EBB300E9B60C /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD7B113423D4EBB200E9B60C /* Rubik-Medium.ttf */; };
+		FD9116E22407F04A00BC6A33 /* FirebaseBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9116E12407F04A00BC6A33 /* FirebaseBrain.swift */; };
 		FD9775DA23F9888400DEB434 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9775D923F9888400DEB434 /* Utilities.swift */; };
 		FDD37C1923D7473000CB0BE3 /* ShiftModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD37C1823D7473000CB0BE3 /* ShiftModel.swift */; };
 		FDD37C1D23D749A400CB0BE3 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD37C1C23D749A400CB0BE3 /* RegisterViewController.swift */; };
@@ -58,6 +59,7 @@
 		FD7B113223D4EBB200E9B60C /* Rubik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Regular.ttf"; sourceTree = "<group>"; };
 		FD7B113323D4EBB200E9B60C /* Rubik-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-LightItalic.ttf"; sourceTree = "<group>"; };
 		FD7B113423D4EBB200E9B60C /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
+		FD9116E12407F04A00BC6A33 /* FirebaseBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseBrain.swift; sourceTree = "<group>"; };
 		FD9775D923F9888400DEB434 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		FDD37C1823D7473000CB0BE3 /* ShiftModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftModel.swift; sourceTree = "<group>"; };
 		FDD37C1C23D749A400CB0BE3 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterViewController.swift; path = Tipapp/Controllers/RegisterViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -152,10 +154,10 @@
 		FDD37C2223D749FD00CB0BE3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FD7B111123D4D86600E9B60C /* WelcomeViewController.swift */,
 				FDD37C1C23D749A400CB0BE3 /* RegisterViewController.swift */,
 				FDD37C1E23D749D200CB0BE3 /* LoginViewController.swift */,
 				FDD37C2023D749E500CB0BE3 /* MainViewController.swift */,
-				FD7B111123D4D86600E9B60C /* WelcomeViewController.swift */,
 				FD391BF523F7F806008CE9EA /* NewShiftViewController.swift */,
 				FD9775D923F9888400DEB434 /* Utilities.swift */,
 			);
@@ -176,6 +178,7 @@
 			children = (
 				FDD37C1823D7473000CB0BE3 /* ShiftModel.swift */,
 				FDD37C2D23D8496A00CB0BE3 /* UserModel.swift */,
+				FD9116E12407F04A00BC6A33 /* FirebaseBrain.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				FDD37C1F23D749D200CB0BE3 /* LoginViewController.swift in Sources */,
 				FD7B111223D4D86600E9B60C /* WelcomeViewController.swift in Sources */,
 				FD9775DA23F9888400DEB434 /* Utilities.swift in Sources */,
+				FD9116E22407F04A00BC6A33 /* FirebaseBrain.swift in Sources */,
 				FD7B110E23D4D86600E9B60C /* AppDelegate.swift in Sources */,
 				FDD37C1D23D749A400CB0BE3 /* RegisterViewController.swift in Sources */,
 				FDD37C1923D7473000CB0BE3 /* ShiftModel.swift in Sources */,

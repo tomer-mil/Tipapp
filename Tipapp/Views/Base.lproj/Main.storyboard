@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sP1-2s-HO6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="82r-PH-zsL">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -452,7 +452,7 @@
                                         <barButtonItem key="leftBarButtonItem" title="hamburger" image="Union 4" style="plain" id="02v-3U-pnC">
                                             <color key="tintColor" name="MainDark"/>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="more" image="Union 1" style="plain" id="6ba-VR-v7E">
+                                        <barButtonItem key="rightBarButtonItem" title="more" image="Union 1" id="6ba-VR-v7E">
                                             <color key="tintColor" name="MainDark"/>
                                         </barButtonItem>
                                     </navigationItem>
@@ -647,9 +647,9 @@
                         <outlet property="averageTime" destination="qTs-GN-wq9" id="cBI-ef-ZmG"/>
                         <outlet property="helloLabel" destination="scK-J1-HDO" id="2P6-TE-FPN"/>
                         <outlet property="kupa" destination="auM-A0-K3R" id="KPe-64-W3T"/>
-                        <outlet property="totalHours" destination="xsd-v9-R8c" id="o66-o6-ZQL"/>
-                        <outlet property="totalMoney" destination="6Yc-08-OWC" id="Ijr-0Z-v2u"/>
-                        <outlet property="totalShifts" destination="RfN-M3-Hy6" id="Skb-UG-hk6"/>
+                        <outlet property="totalHoursLabel" destination="xsd-v9-R8c" id="o66-o6-ZQL"/>
+                        <outlet property="totalMoneyLabel" destination="6Yc-08-OWC" id="Ijr-0Z-v2u"/>
+                        <outlet property="totalShiftsLabel" destination="RfN-M3-Hy6" id="Skb-UG-hk6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ubw-f3-far" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -670,7 +670,7 @@
                                     <constraint firstAttribute="height" constant="408" id="RRY-NC-a60"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="CPj-LM-ZKJ" kind="embed" id="grc-cY-iNN"/>
+                                    <segue destination="CPj-LM-ZKJ" kind="embed" identifier="" id="grc-cY-iNN"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -718,7 +718,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z30-cT-d8S">
                                         <rect key="frame" x="0.0" y="0.0" width="337" height="20.5"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="בחר תאריך" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yyc-0c-Rz9" userLabel="Date Text Field">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="בחר תאריך" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yyc-0c-Rz9" userLabel="Date Text Field">
                                                 <rect key="frame" x="0.0" y="0.0" width="294.5" height="20.5"/>
                                                 <color key="textColor" name="TextColor"/>
                                                 <fontDescription key="fontDescription" name="Rubik-Regular" family="Rubik" pointSize="17"/>
@@ -737,7 +737,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iRa-HW-KKm">
                                         <rect key="frame" x="0.0" y="41.5" width="337" height="20.5"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="6.7" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1GJ-ww-1bo" userLabel="Working Time Text Field">
+                                            <textField opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="6.7" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1GJ-ww-1bo" userLabel="Working Time Text Field">
                                                 <rect key="frame" x="0.0" y="0.0" width="255" height="20.5"/>
                                                 <color key="textColor" name="TextColor"/>
                                                 <fontDescription key="fontDescription" name="Rubik-Regular" family="Rubik" pointSize="17"/>
@@ -757,7 +757,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cUk-96-D9b">
                                         <rect key="frame" x="0.0" y="83" width="337" height="20.5"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" text="85" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" id="n4r-7g-fZS">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" text="85" adjustsFontSizeToFit="NO" minimumFontSize="17" id="n4r-7g-fZS">
                                                 <rect key="frame" x="0.0" y="0.0" width="265" height="20.5"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="textColor" name="TextColor"/>
@@ -782,7 +782,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cpr-oj-FsG">
                                         <rect key="frame" x="0.0" y="0.0" width="337" height="28"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="6.7" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" id="S3r-7X-OdI">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="6.7" minimumFontSize="17" id="S3r-7X-OdI">
                                                 <rect key="frame" x="0.0" y="0.0" width="264" height="28"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="textColor" name="TextColor"/>

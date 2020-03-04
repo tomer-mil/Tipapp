@@ -13,6 +13,7 @@ import FirebaseFirestoreSwift
 class RegisterViewController: UIViewController {
     
     let db = Firestore.firestore()
+    let firebaseBrain = FirebaseBrain()
     private var pickerData = ["האחים", "dok דוק", "abie אייבי"]
     private var selectedRestaurant = ""
     var userName : String?
@@ -25,7 +26,9 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var restaurantPickerView: UIPickerView!
     @IBOutlet weak var selectARestaurant: UITextField!
     
+    
     @IBAction func signupButtonPressed(_ sender: Any) {
+            let restaurant = self.selectedRestaurant
         if  let email = emailTextfield.text,
             let password = passwordTextfield.text,
             let name = usernameTextfield.text {
@@ -37,17 +40,20 @@ class RegisterViewController: UIViewController {
                     print(e.localizedDescription)
                     
                 } else {
-                    self.db.collection("users").document(Result!.user.uid).setData([
+                    let UID = Result!.user.uid
+                    self.db.collection("users").document(UID).setData([
                         "name" : name,
-                        "restaurant" : self.selectedRestaurant,
-                        "uid" : Result!.user.uid
+                        "restaurant" : restaurant,
+                        "uid" : UID
                     ]) { (error) in
                         if let e = error {
                             print(e.localizedDescription)
                         }
                     }
+                    self.db.collection("restaurants").document(restaurant).setData([
+                        "employees" : [name : UID]
+                    ], merge: true)
                     self.fetchUserName()
-                    
                 }
             }
         }
@@ -63,7 +69,6 @@ class RegisterViewController: UIViewController {
     }
     
     func fetchUserName(){
-        
         guard let loggedUser = Auth.auth().currentUser else {
             fatalError("Couldn't fetch logged in user")}
         
@@ -78,7 +83,6 @@ class RegisterViewController: UIViewController {
                     for document in snapshotDocument {
                         let user = document.data()
                         let fetchedUserName = user["name"] as? String
-                        
                         self.userName = fetchedUserName
                         
                         DispatchQueue.main.async {
@@ -95,9 +99,8 @@ class RegisterViewController: UIViewController {
         self.selectARestaurant.delegate = self
         
     }
-    
-    
 }
+
 
 
 
