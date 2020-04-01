@@ -65,10 +65,11 @@ class RegisterViewController: UIViewController {
         if segue.identifier == K.registerSegue {
             let destinationVC = segue.destination as! MainViewController
             destinationVC.userName = userName!
+            destinationVC.realmBrain.setDefaultRealmForUser()
         }
     }
     
-    func fetchUserName(){
+    func fetchUserName() {
         guard let loggedUser = Auth.auth().currentUser else {
             fatalError("Couldn't fetch logged in user")}
         

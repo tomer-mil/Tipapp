@@ -5,14 +5,11 @@ platform :ios, '13.0'
   use_frameworks!
   target 'Tipapp' do
     
-    pod 'SideMenu'
-    pod 'PopupKit'
     pod 'Firebase'
     pod 'FirebaseFirestoreSwift'
     pod 'Firebase/Auth'
     pod 'Firebase/Analytics'
     pod 'RealmSwift'
-    pod 'EzPopup'
 
   # Pods for Tipapp
 

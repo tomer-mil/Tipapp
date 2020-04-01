@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		99D2CB05D72FB971283DBAC9 /* Pods_Tipapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47C404B44B4BB6E9A5E25E70 /* Pods_Tipapp.framework */; };
 		FD391BF623F7F806008CE9EA /* NewShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD391BF523F7F806008CE9EA /* NewShiftViewController.swift */; };
+		FD68EE452416B19E00477C09 /* RealmBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD68EE442416B19E00477C09 /* RealmBrain.swift */; };
 		FD7B110E23D4D86600E9B60C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7B110D23D4D86600E9B60C /* AppDelegate.swift */; };
 		FD7B111023D4D86600E9B60C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7B110F23D4D86600E9B60C /* SceneDelegate.swift */; };
 		FD7B111223D4D86600E9B60C /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7B111123D4D86600E9B60C /* WelcomeViewController.swift */; };
@@ -26,6 +27,8 @@
 		FD7B113D23D4EBB300E9B60C /* Rubik-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD7B113323D4EBB200E9B60C /* Rubik-LightItalic.ttf */; };
 		FD7B113E23D4EBB300E9B60C /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD7B113423D4EBB200E9B60C /* Rubik-Medium.ttf */; };
 		FD9116E22407F04A00BC6A33 /* FirebaseBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9116E12407F04A00BC6A33 /* FirebaseBrain.swift */; };
+		FD9116E42414E28E00BC6A33 /* TaxBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9116E32414E28E00BC6A33 /* TaxBrain.swift */; };
+		FD9116E6241669A800BC6A33 /* TaxStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9116E5241669A800BC6A33 /* TaxStep.swift */; };
 		FD9775DA23F9888400DEB434 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9775D923F9888400DEB434 /* Utilities.swift */; };
 		FDD37C1923D7473000CB0BE3 /* ShiftModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD37C1823D7473000CB0BE3 /* ShiftModel.swift */; };
 		FDD37C1D23D749A400CB0BE3 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD37C1C23D749A400CB0BE3 /* RegisterViewController.swift */; };
@@ -41,6 +44,7 @@
 		91878AECF1754061C7176788 /* Pods-Tipapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tipapp.release.xcconfig"; path = "Target Support Files/Pods-Tipapp/Pods-Tipapp.release.xcconfig"; sourceTree = "<group>"; };
 		A9030D94974A2CE957D8507B /* Pods-Tipapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tipapp.debug.xcconfig"; path = "Target Support Files/Pods-Tipapp/Pods-Tipapp.debug.xcconfig"; sourceTree = "<group>"; };
 		FD391BF523F7F806008CE9EA /* NewShiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewShiftViewController.swift; sourceTree = "<group>"; };
+		FD68EE442416B19E00477C09 /* RealmBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmBrain.swift; sourceTree = "<group>"; };
 		FD7B110A23D4D86600E9B60C /* Tipapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tipapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD7B110D23D4D86600E9B60C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD7B110F23D4D86600E9B60C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +64,8 @@
 		FD7B113323D4EBB200E9B60C /* Rubik-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-LightItalic.ttf"; sourceTree = "<group>"; };
 		FD7B113423D4EBB200E9B60C /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
 		FD9116E12407F04A00BC6A33 /* FirebaseBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseBrain.swift; sourceTree = "<group>"; };
+		FD9116E32414E28E00BC6A33 /* TaxBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxBrain.swift; sourceTree = "<group>"; };
+		FD9116E5241669A800BC6A33 /* TaxStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxStep.swift; sourceTree = "<group>"; };
 		FD9775D923F9888400DEB434 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		FDD37C1823D7473000CB0BE3 /* ShiftModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftModel.swift; sourceTree = "<group>"; };
 		FDD37C1C23D749A400CB0BE3 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterViewController.swift; path = Tipapp/Controllers/RegisterViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -179,6 +185,9 @@
 				FDD37C1823D7473000CB0BE3 /* ShiftModel.swift */,
 				FDD37C2D23D8496A00CB0BE3 /* UserModel.swift */,
 				FD9116E12407F04A00BC6A33 /* FirebaseBrain.swift */,
+				FD68EE442416B19E00477C09 /* RealmBrain.swift */,
+				FD9116E32414E28E00BC6A33 /* TaxBrain.swift */,
+				FD9116E5241669A800BC6A33 /* TaxStep.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -316,11 +325,14 @@
 				FD7B110E23D4D86600E9B60C /* AppDelegate.swift in Sources */,
 				FDD37C1D23D749A400CB0BE3 /* RegisterViewController.swift in Sources */,
 				FDD37C1923D7473000CB0BE3 /* ShiftModel.swift in Sources */,
+				FD9116E42414E28E00BC6A33 /* TaxBrain.swift in Sources */,
 				FD7B111023D4D86600E9B60C /* SceneDelegate.swift in Sources */,
+				FD9116E6241669A800BC6A33 /* TaxStep.swift in Sources */,
 				FD391BF623F7F806008CE9EA /* NewShiftViewController.swift in Sources */,
 				FDD37C2123D749E500CB0BE3 /* MainViewController.swift in Sources */,
 				FDD37C2E23D8496A00CB0BE3 /* UserModel.swift in Sources */,
 				FDD37C2C23D75E2500CB0BE3 /* Constants.swift in Sources */,
+				FD68EE452416B19E00477C09 /* RealmBrain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

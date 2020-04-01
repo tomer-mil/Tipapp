@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RealmSwift
 import Firebase
 import FirebaseFirestoreSwift
 
@@ -21,15 +20,21 @@ class NewShiftViewController : UIViewController {
     @IBOutlet weak var fiftySwitch: UISwitch!
     @IBOutlet weak var traineeSwitch: UISwitch!
     @IBOutlet weak var lunchSwitch: UISwitch!
+        
+    private let db = Firestore.firestore()
+    private let datePicker = UIDatePicker()
+    private var selectedDate : Date?
+    private var usersRestaurant : String?
     
-    let realm = try! Realm()
+    lazy var realmBrain = RealmBrain()
+    var delegate : NewShiftAddedProtocol?
+    let text = "text from new shift vc"
     
-    let db = Firestore.firestore()
+//    init(with delegate : NewShiftAddedProtocol) {
+//        self.delegate = delegate
+//    }
     
-    let datePicker = UIDatePicker()
-    var selectedDate : Date?
-    var usersRestaurant : String?
-    
+ //MARK: - addShiftPressed
     @IBAction func addShiftPressed(_ sender: UIButton) {
         
         guard let loggedUserInfo = Auth.auth().currentUser else {
@@ -37,10 +42,7 @@ class NewShiftViewController : UIViewController {
             }
         
         let userRef = db.collection("users").document(loggedUserInfo.uid)
-//        let monthQuery = restaurantRef.
         let shiftRef = userRef.collection("shifts")
-
-        let newShift = Shift()
         
         let doubleWage = convertToDouble(wageTextField.text)
         let doubleLength = convertToDouble(shiftLengthTextField.text)
@@ -55,7 +57,7 @@ class NewShiftViewController : UIViewController {
             "training" : traineeSwitch.isOn,
             "noon" : lunchSwitch.isOn,
             "waiting" : doubleWaitingTime,
-            "total" : calcTotal(wage: doubleWage, length: doubleLength)
+            "total_for_tax" : calcTotalForTax(wage: doubleWage, length: doubleLength)
             
             
         ]) { (error) in
@@ -63,38 +65,27 @@ class NewShiftViewController : UIViewController {
                 print(e.localizedDescription)
             }
         }
-        
-        
-        
-        
-        do {
-            try realm.write {
-                newShift.date = selectedDate
-                newShift.length = doubleLength
-                newShift.wage = doubleWage
-                
-                newShift.waiting = doubleWaitingTime
-                newShift.fifty = fiftySwitch.isOn
-                newShift.noon = lunchSwitch.isOn
-                newShift.training = traineeSwitch.isOn
-                newShift.total = calcTotal(wage: doubleWage, length: doubleLength)
-                realm.add(newShift)
-            }
-        } catch {
-            print("Error saving realm data \(error)")
+        guard let safeDelegate = delegate else {
+            fatalError("delegate is nil")
         }
+
+            safeDelegate.newShiftAdded()
+        
         DispatchQueue.main.async {
-            self.dismiss(animated: true, completion: nil)
+            self.remove(asChildViewController: self)
         }
         
     }
 
-    
+    //MARK: - viewDidload
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.dateTextField.delegate = self
         changeTextFieldUI()
         fetchUserData()
+        DispatchQueue.main.async {
+            self.dateTextField.delegate = self
+
+        }
     }
     
     
@@ -154,9 +145,24 @@ class NewShiftViewController : UIViewController {
         return stringDate
     }
     
+    //MARK: - Child VC Methods
+    
+    private func remove(asChildViewController viewController: UIViewController) {
+        // Notify Child View Controller
+        viewController.willMove(toParent: nil)
 
+        // Remove Child View From Superview
+        viewController.view.removeFromSuperview()
+
+        // Notify Child View Controller
+        viewController.removeFromParent()
+    }
+    
+    
+    
+    
     //MARK: - Calc Total Method
-    private func calcTotal (wage: Double, length: Double) -> Double {
+    private func calcTotalWithProvision (wage: Double, length: Double) -> Double {
         var total = 0.0
         let provision = Utilities.socialProvision
         
@@ -166,6 +172,19 @@ class NewShiftViewController : UIViewController {
             total = (wage * length) - provision
         } else if fiftySwitch.isOn == false {
             total = wage * length
+        }
+        return total
+    }
+    
+    private func calcTotalForTax(wage: Double, length: Double) -> Double {
+        var total = 0.0
+        total = wage * length
+        
+        let waitingTime = Double(self.waitingTimeTextField.text ?? "0.0") ?? 0.0
+        total += (waitingTime * Utilities.minimumWage)
+        
+        if traineeSwitch.isOn {
+            total += 50.0
         }
         return total
     }
@@ -191,7 +210,14 @@ extension NewShiftViewController  {
         datePicker.addTarget(nil, action: #selector(NewShiftViewController.textFieldDidBeginEditing(_:)), for: .valueChanged)
         let dateDescription = dateToString(datePicker.date, format: "EEEE")
         let dateNumbers = dateToString(datePicker.date, format: "dd/MM")
-        self.dateTextField.text = "\(dateDescription) \(dateNumbers)"
+        let dateFullDescription = "\(dateDescription) \(dateNumbers)"
+        DispatchQueue.main.async {
+            self.dateTextField.text = dateFullDescription
+        }
+        
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE dd/MM"
         selectedDate = datePicker.date
     }
     
@@ -213,13 +239,4 @@ extension NewShiftViewController  {
     
 }
 
-//MARK: - Date extension
-
-extension Date {
-    var month: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM"
-        return dateFormatter.string(from: self)
-    }
-}
 

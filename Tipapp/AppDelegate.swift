@@ -19,15 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         do {
-            let _ = try Realm()
+            let realm = try Realm()
         } catch {
             print("error with realm \(error)")
         }
+        
+        
         FirebaseApp.configure()
         let _ = Firestore.firestore()
-        
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
-        
+
         return true
     }
     

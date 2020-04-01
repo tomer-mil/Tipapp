@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 import Firebase
 import FirebaseFirestoreSwift
 
@@ -14,6 +15,8 @@ class LoginViewController: UIViewController {
     
     private let db = Firestore.firestore()
     var userName : String?
+    private let loginRealmBrain = RealmBrain()
+    
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -30,6 +33,7 @@ class LoginViewController: UIViewController {
                     print(e)
                 } else {
                     self.fetchUserName()
+                    self.setRealmConfiguration()
                 }
             }
         }
@@ -39,8 +43,12 @@ class LoginViewController: UIViewController {
 //MARK: - Passing the user's first name
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.loginSegue {
+            
+            self.loginRealmBrain.setDefaultRealmForUser()
+            
             let destinationVC = segue.destination as! MainViewController
             destinationVC.userName = userName!
+//            destinationVC.realmBrain.createRealmShifts()
         }
     }
     
@@ -71,4 +79,54 @@ class LoginViewController: UIViewController {
             }
         }
     }
+    
+    private func setRealmConfiguration() {
+        guard let loggedUser = Auth.auth().currentUser else {
+            fatalError("no logged user found")
+        }
+        let uid = loggedUser.uid
+        var config = Realm.Configuration()
+        
+        config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("\(uid).realm")
+        
+        Realm.Configuration.defaultConfiguration = config
+    }
+    
+    
+    
 }
+
+
+extension LoginViewController {
+    func fetchMonthShifts() -> [QueryDocumentSnapshot] {
+            var monthDocumentSnapshot : [QueryDocumentSnapshot] = []
+        if let safeUser = Auth.auth().currentUser {
+                let userRef = db.collection("users").document(safeUser.uid)
+                let shiftRef = userRef.collection("shifts")
+                
+                let currentMonth = Date()
+                let previousMonth = Calendar.current.date(byAdding: .month, value: -1, to: Date()) ?? Date(timeIntervalSince1970: 0)
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MMMM d, yyyy HH:mm:ss"
+                
+                let currentDateInTimestamp : Timestamp = Timestamp(date: currentMonth)
+                let previousDateInTimestamp : Timestamp = Timestamp(date: previousMonth)
+                shiftRef
+                    .whereField("date", isLessThanOrEqualTo: currentDateInTimestamp)
+                    .whereField("date", isGreaterThanOrEqualTo: previousDateInTimestamp)
+                    .getDocuments { (QuerySnapshot, error) in
+                        if let e = error {
+                            print(e.localizedDescription)
+                        } else {
+                            if let safeDocuments = QuerySnapshot?.documents {
+                                monthDocumentSnapshot = safeDocuments
+                            }
+                        }
+                }
+            }
+            return monthDocumentSnapshot
+        }
+    }
+
+

@@ -14,7 +14,9 @@ struct K {
     static let registerSegue = "registerToMain"
     static let loginSegue = "loginToMain"
     static let firstLoginSegue = "loginToFirst"
-    static let showNewShiftSegue = "showAddShift"
+    static let showNewShiftParentSegue = "goToParentNewShift"
+    static let showPopupSegue = "showPopup"
+    static let backToMain = "backToMain"
     
     struct BrandColors {
         static let purple = "BrandPurple"
@@ -29,4 +31,16 @@ struct K {
         static let bodyField = "body"
         static let dateField = "date"
     }
+    
+    struct FSnames {
+           static let date = "date"
+           static let fifty = "fifty"
+           static let length = "length"
+           static let noon = "noon"
+           static let totalTax = "total_for_tax"
+           static let trainee = "training"
+           static let wage = "wage"
+           static let waiting = "waiting"
+       }
+       
 }

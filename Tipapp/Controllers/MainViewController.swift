@@ -7,19 +7,30 @@
 //
 
 import UIKit
+import RealmSwift
 import Firebase
 import FirebaseFirestoreSwift
-import RealmSwift
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, NewShiftAddedProtocol {
     
-    var shifts : Results<Shift>?
+    func newShiftAdded() {
     
-    let realm = try! Realm()
+    }
+    
+    
+    private let db = Firestore.firestore()
+    private let realm = try! Realm()
+    
+    let loggedUser = Auth.auth().currentUser
     
     var userName = ""
-    let date = Date()
+    var uid : String?
     
+    let taxBrain = TaxBrain()
+    let fireBrain = FirebaseBrain()
+    var realmBrain = RealmBrain()
+    
+    var newShiftVC = NewShiftViewController()
     
     @IBOutlet weak var helloLabel: UILabel!
     
@@ -27,62 +38,141 @@ class MainViewController: UIViewController {
     @IBOutlet weak var totalShiftsLabel: UILabel!
     @IBOutlet weak var totalHoursLabel: UILabel!
     
-    @IBOutlet weak var averageDailyMoney: UILabel!
-    @IBOutlet weak var averageHourly: UILabel!
-    @IBOutlet weak var averageTime: UILabel!
+    @IBOutlet weak var averagePerShift: UILabel!
+    @IBOutlet weak var averagePerHour: UILabel!
+    @IBOutlet weak var averageLength: UILabel!
     
     @IBOutlet weak var kupa: UILabel!
     
     @IBAction func addNewShiftPressed(_ sender: Any) {
-        
+        addChildVC()
     }
+    //MARK: - viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        updateUI()
-        
+        newShiftVC.delegate = self
+
+        self.realmBrain.filterThisMonthShifts()
+        DispatchQueue.main.async {
+            self.updateUI()
+        }
+        print("Realm file configuration: ", realm.configuration.fileURL!)
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        print("MainVC will disappear")
-    }
-    
-    
-    
-    
-    
     
     //MARK: - UI Methods
-    private func updateUI() {
+    func updateUI() {
+        // Name
         print("passed name to main: \(userName)")
         helloLabel.text! = "שלום \(userName)"
-        updateTotalsUI()
-        updateAveragesUI()
         
-    }
-    private func updateTotalsUI() {
-        shifts = realm.objects(Shift.self)
-        // total money
-        if let totalMoneyDouble : Double = shifts?.sum(ofProperty: "total") {
-            let flooredTotal = Int(floor(totalMoneyDouble))
-            totalMoneyLabel.text = "\(flooredTotal)₪"
-        } else {
-            print("Shifts Results is nil")
-        }
-        //total shifts
-        if let totalShifts = shifts?.count {
-            totalShiftsLabel.text = "משמרות: \(totalShifts)"
-        } else {
-            print("Shifts Results is nil")
-        }
-        // total hours
-        if let totalHours : Double = shifts?.sum(ofProperty: "length") {
-            totalHoursLabel.text = "שעות: \(totalHours)"
-        }
-    }
+        // Totals
+        self.totalMoneyLabel.text = "\(Int(floor(realmBrain.totalAfterTax)))₪"
+        self.totalShiftsLabel.text = "משמרות:" + " " + "\(realmBrain.totalShifts)"
+        self.totalHoursLabel.text = "שעות:" + " " + String(format: "%.1f", realmBrain.totalHours)
+        
+        //Average
+        self.averageLength.text = String(format: "%.1f",realmBrain.averageLength) + " שעות"
+        self.averagePerHour.text = String(format: "%.1f",realmBrain.averagePerHour) + "₪"
+        self.averagePerShift.text = String(format: "%.1f",realmBrain.averagePerShift) + "₪"
+        
+        //Other
+        let shiftsWithFifty = realmBrain.currentMonthShifts.filter("fifty == %@", true).count
+        let kupaDifference = taxBrain.calcDifference(numberOfShifts: shiftsWithFifty, salary: realmBrain.totalPreTax)
+        self.kupa.text = String(format: "%.1f",kupaDifference)
+}
     
-    private func updateAveragesUI() {
+    
+    
+    private func updateTotalsUIWithFirebase() {
         
+        var totalMonthMoney : Double = 0.0
+        var totalMonthHours : Double = 0.0
+        var totalMonthShifts : Int = 0
+        
+        fireBrain.fetchMonthShifts { (monthDocuments) in
+            totalMonthShifts = monthDocuments.count
+            
+            for document in monthDocuments {
+                let shift = document.data()
+                let totalMoney = shift["total_for_tax"] as? Double
+                totalMonthMoney += totalMoney ?? 0.0
+                
+                let totalHours = shift["length"] as? Double
+                totalMonthHours += totalHours ?? 0.0
+            }
+            
+            let taxAmount = self.taxBrain.calcTax(amount: totalMonthMoney)
+            self.totalMoneyLabel.text = "\(Int(floor(totalMonthMoney - taxAmount)))₪"
+            self.totalShiftsLabel.text = "משמרות:" + " " + "\(totalMonthShifts)"
+            self.totalHoursLabel.text = "שעות:" + " " + String(format: "%.1f", totalMonthHours)
+        }
+    }
+
+//MARK: - Add Child VC
+
+    func addChildVC() {
+        
+        var _: NewShiftViewController = {
+            // Load Storyboard
+            let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+
+            // Instantiate View Controller
+            let viewController = storyboard.instantiateViewController(withIdentifier: "NewShiftStoryboard") as! NewShiftViewController
+    
+                viewController.delegate = self
+            
+            // Add View Controller as Child View Controller
+            self.add(asChildViewController: viewController)
+
+            return viewController
+        }()
+    }
+
+    private func setChildVCConstraints(withChild childVC: UIViewController) {
+        childVC.view.translatesAutoresizingMaskIntoConstraints = false
+        childVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0.0).isActive = true
+        childVC.view.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: 0.0).isActive = true
+        childVC.view.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 0.0).isActive = true
+        
+        childVC.view.heightAnchor.constraint(equalToConstant: 403).isActive = true
+    }
+    private func add(asChildViewController viewController: UIViewController) {
+        // Add Child View Controller
+        addChild(viewController)
+
+        // Add Child View as Subview
+        view.addSubview(viewController.view)
+
+        // Configure Child View
+        setChildVCConstraints(withChild: viewController)
+        
+        // Notify Child View Controller
+        viewController.didMove(toParent: self)
+    }
+
+}
+
+//MARK: - Date extension
+
+extension Date {
+    var month: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM"
+        return dateFormatter.string(from: self)
     }
 }
 
+//extension MainViewController {
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == K.showNewShiftSegue {
+//            let popupVC = segue.destination as! NewShiftViewController
+//            popupVC.delegate = self
+//        }
+//    }
+//}
+
+//MARK: - NewShift Protocol
+protocol NewShiftAddedProtocol {
+    func newShiftAdded()
+}

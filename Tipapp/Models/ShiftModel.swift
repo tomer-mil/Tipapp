@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 class Shift: Object {
+    @objc dynamic var id : String = ""
     @objc dynamic var date : Date?
     @objc dynamic var noon : Bool = false
     @objc dynamic var wage : Double = 0.0
@@ -18,4 +19,8 @@ class Shift: Object {
     @objc dynamic var fifty : Bool = true
     @objc dynamic var training : Bool = false
     @objc dynamic var total : Double = 0.0
+
+    override static func primaryKey() -> String? {
+        return "id"
+    }
 }
